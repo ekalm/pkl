@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\kecamatan;
-use App\Models\provinsi;
+use App\Models\kota;
 use Illuminate\Http\Request;
 
 class KecamatanController extends Controller
@@ -15,8 +15,8 @@ class KecamatanController extends Controller
      */
     public function index()
     {
-        $kecamatan = kecamatan::with('provinsi')->get();
-        return view('kecamatan.index', compact('kecamatan'));
+        $kecamatan = Kecamatan::with('kota')->get();
+        return view('admin.kecamatan.index', compact('kecamatan'));
     }
 
     /**
@@ -26,8 +26,8 @@ class KecamatanController extends Controller
      */
     public function create()
     {
-        $kecamatan = Provinsi::all();
-        return view('kecamatan.create',compact('provinsi'));
+        $kecamatan = Kota::all();
+        return view('admin.kecamatan.create', compact('kecamatan'));
     }
 
     /**
@@ -39,13 +39,12 @@ class KecamatanController extends Controller
     public function store(Request $request)
     {
         $kecamatan = new Kecamatan();
-        $kecamatan->id_provinsi = $request->id_provinsi;
-        $kecamatan->kode_provinsi = $request->kode_kecamatan;
+        $kecamatan->id_kota = $request->id_kota;
         $kecamatan->nama_kecamatan = $request->nama_kecamatan;
-        $kecamatan->id_provinsi = $request->id_provinsi;
         $kecamatan->save();
         return redirect()->route('kecamatan.index')
-        ->with(['message'=>'Data Berhasil Dibuat']);
+            ->with(['success'=>'Data <b>', $kecamatan->nama_kecamatan, 
+            '</b> Berhasil di input']);
     }
 
     /**
@@ -57,7 +56,7 @@ class KecamatanController extends Controller
     public function show($id)
     {
         $kecamatan = Kecamatan::findOrFail($id);
-        return view('kecamatan.show',compact('kecamatan'));
+        return view('admin.kecamatan.show', compact('kecamatan'));
     }
 
     /**
@@ -68,12 +67,9 @@ class KecamatanController extends Controller
      */
     public function edit($id)
     {
-        $provinsi = Provinsi::all();
-        $kota = Kota::finOrFail($id);
-        $kecamatan = kecamatan::findOrFail();
-
-        //dd($select);
-        return view('kecamatan.edit',compact('kecamatan','provinsi'));
+        $kota = Kota::all();
+        $kecamatan = Kecamatan::findOrFail($id);
+        return view('admin.kecamatan.edit', compact('kecamatan', 'kota'));
     }
 
     /**
@@ -83,15 +79,15 @@ class KecamatanController extends Controller
      * @param  \App\Models\kecamatan  $kecamatan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
-        $kecamatan = kecamatan::findOrFail($id);
-        $kecamatan->id_provinsi = $request->id_provinsi;
-        $kecamatan->kode_provinsi = $request->kode_kecamatan;
+        $kecamatan = Kecamatan::findOrFail($id);
+        $kecamatan->id_kota = $request->id_kota;
         $kecamatan->nama_kecamatan = $request->nama_kecamatan;
         $kecamatan->save();
         return redirect()->route('kecamatan.index')
-        ->with(['message'=>'Data Berhasil di Edit']);
+            ->with(['success'=>'Data <b>', $kecamatan->nama_kecamatan, 
+            '</b> Berhasil di edit']);
     }
 
     /**
@@ -100,10 +96,12 @@ class KecamatanController extends Controller
      * @param  \App\Models\kecamatan  $kecamatan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(kecamatan $kecamatan)
+    public function destroy($id)
     {
-        $kecamatan = kota::findOrFail($id)->delete();
+        $kecamatan = Kecamatan::findOrFail($id);
+        $kecamatan->delete();
         return redirect()->route('kecamatan.index')
-        ->with(['message'=>'Data Berhasil Dihapus']);
+            ->with(['success'=>'Data <b>', $kecamatan->nama_kecamatan, 
+            '</b> Berhasil di hapus']);
     }
 }

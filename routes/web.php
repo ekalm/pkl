@@ -3,6 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProvinsiController;
 use App\Http\Controllers\KotaController;
+use App\Http\Controllers\KecamatanController;
+use App\Http\Controllers\DesaController;
+use App\Http\Controllers\RwController;
+use App\Http\Controllers\KasusController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,22 +23,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::group(['prefix' => 'admin', 'middleware'=>['auth']], function() {
+        Route::get('/', function()
+        {
+            return view('admin.index');
+        });
 
-Route::get('hayu', function () {
-    return view('layouts.admin');
-});
-
-Route::group(['prefix' =>'admin', 'middleware'=>['auth']],function (){
-    Route::get('/',function(){   
-        return view('admin.index');
-    });
-
-    Route::resource('provinsi',ProvinsiController::class);
-
-});
-
-       
-      
+        Route::resource('provinsi', ProvinsiController::class);
+        Route::resource('kota', KotaController::class);
+        Route::resource('kecamatan', KecamatanController::class);
+        Route::resource('desa', desaController::class);
+        Route::resource('rw', rwController::class);
+ } );

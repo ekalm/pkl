@@ -4,14 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Kota;
+use App\Models\Desa;
 
-class kecamatan extends Model
+class Kecamatan extends Model
 {
-    public function kota() {
-        return $this->belogsTo('App/Models/kota/id_kota');
-    }
-    public function desa() {
-        return $this->hasmany('App/Models/desa/id_kecamatan');
+    public function Kota(){
+        return $this->belongsTo('App\Models\Kota','id_kota');
     }
 
+    public function Desa(){
+        return $this->hasMany('App\Models\Desa','id_kecamatan');
+    }
 }

@@ -5,26 +5,29 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        Tambah Data kecamatan
+                        Edit Data Rw
                     </div>
                     <div class="card-body">
-                        <form action="{{route('kecamatan.store')}}" method="post">
+                        <form action="{{route('rw.update', $rw->id)}}" method="post">
+                            @method('put')
                             @csrf
                             <div class="form-group">
-                                <label for="">Pilih kota</label>
-                                <select name="id_kota" class="form-control">
-                                    @foreach($kecamatan as $data)
-                                    <option value="{{$data->id}}">{{$data->nama_kota}}</option>
+                                <label for="">Pilih Desa</label>
+                                <select name="id_desa" class="form-control">
+                                    @foreach($desa as $data)
+                                    <option value="{{$data->id}}" {{$data->id == $rw->id_desa ? 'selected' : ''}}>
+                                            {{$data->nama_desa}}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="">Nama Kecamatan</label>
-                                <input type="text" name="nama_kecamatan" class="form-control" required>
+                                <label for="">No Urut rw</label>
+                                <input type="nomber" name="nama_rw" value="{{$rw->nama_desa}}" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn block">Simpan</button>
-                                <a href=" {{ route('kecamatan.index') }} " class="btn btn-danger">Back</a>
+                                <a href=" {{ route('rw.index') }} " class="btn btn-danger">Back</a>
                             </div>
                         </form>
                     </div>

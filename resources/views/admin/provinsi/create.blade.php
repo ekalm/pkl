@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="class-header">
+                <div class="card-header">
                     Tambah Data Provinsi 
                          <div class="card-body">
                              <form action="{{route('provinsi.store')}}" method="post">
@@ -28,4 +28,3 @@
     </div>
 </div>
 @endsection
-

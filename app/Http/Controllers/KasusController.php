@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\kasus;
+use App\Models\rw;
 use Illuminate\Http\Request;
 
 class KasusController extends Controller
@@ -14,7 +15,8 @@ class KasusController extends Controller
      */
     public function index()
     {
-        //
+        $kasus = kasus::with('rw')->get();
+        return view('kasus.index', compact('kasus'));
     }
 
     /**
@@ -24,7 +26,8 @@ class KasusController extends Controller
      */
     public function create()
     {
-        //
+        $rw = Rw::all();
+        return view('kasus.create', compact('rw'));
     }
 
     /**
@@ -35,7 +38,14 @@ class KasusController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $kasus = new Kasus();
+        $kasus->jumlah_positif = $request->positif;
+        $kasus->jumlah_meninggal = $request->meninggal;
+        $kasus->jumlah_sembuh = $request->sembuh;
+        $kasus->tanggal = $request->tanggal;
+        $kasus->id_rw = $request->id_rw;
+        $kasus->save();
+        return redirect()->route('kasus.index')->with(['message'=>'Data Berhasil dibuat']);
     }
 
     /**
@@ -44,9 +54,10 @@ class KasusController extends Controller
      * @param  \App\Models\kasus  $kasus
      * @return \Illuminate\Http\Response
      */
-    public function show(kasus $kasus)
+    public function show($id)
     {
-        //
+        $kasus = Kasus::findOrFail($id);
+        return view('kasus.show', compact('kasus'));
     }
 
     /**
@@ -57,7 +68,9 @@ class KasusController extends Controller
      */
     public function edit(kasus $kasus)
     {
-        //
+        $rw = Rw::all();
+        $kasus = Kasus::findOrFail($id);
+        return view('kasus.edit', compact('kasus','rw'));
     }
 
     /**
