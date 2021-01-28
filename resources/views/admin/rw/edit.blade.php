@@ -22,8 +22,8 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="">No Urut rw</label>
-                                <input type="nomber" name="nama_rw" value="{{$rw->nama_desa}}" class="form-control" required>
+                                <label for="">No rw</label>
+                                <input type="number" name="no_rw" value="{{$rw->nama_desa}}" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn block">Simpan</button>

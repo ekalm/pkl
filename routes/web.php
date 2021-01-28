@@ -5,7 +5,7 @@ use App\Http\Controllers\ProvinsiController;
 use App\Http\Controllers\KotaController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\DesaController;
-use App\Http\Controllers\RwController;
+use App\Http\Controllers\rwController;
 use App\Http\Controllers\KasusController;
 
 /*
@@ -26,6 +26,9 @@ Route::get('/', function () {
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Auth::routes();
 
+Route::get('/admin', [App\Http\Controllers\HomeController::class, 'index'])->name('provinsi');
+Auth::routes();
+
 Route::group(['prefix' => 'admin', 'middleware'=>['auth']], function() {
         Route::get('/', function()
         {
@@ -37,4 +40,5 @@ Route::group(['prefix' => 'admin', 'middleware'=>['auth']], function() {
         Route::resource('kecamatan', KecamatanController::class);
         Route::resource('desa', desaController::class);
         Route::resource('rw', rwController::class);
+        Route::resource('kasus', kasusController::class);
  } );

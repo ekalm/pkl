@@ -39,6 +39,7 @@ class KasusController extends Controller
     public function store(Request $request)
     {
         $kasus = new Kasus();
+        $kasus->jumlah_reaktif = $request->reaktif;
         $kasus->jumlah_positif = $request->positif;
         $kasus->jumlah_meninggal = $request->meninggal;
         $kasus->jumlah_sembuh = $request->sembuh;
@@ -80,9 +81,18 @@ class KasusController extends Controller
      * @param  \App\Models\kasus  $kasus
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, kasus $kasus)
+    public function update(Request $request,$id)
     {
-        //
+        $kasus = $kasus::findOrFail($id);
+        $kasus->jumlah_reaktif = $request->reaktif;
+        $kasus->jumlah_positif = $request->positif;
+        $kasus->jumlah_meninggal = $request->meninggal;
+        $kasus->jumlah_sembuh = $request->sembuh;
+        $kasus->tanggal = $request->tanggal;
+        $kasus->id_rw = $request->id_rw;
+        $kasus->save();
+        return redirect()->route('kasus.index')
+        ->with(['message'=>'Data Berhasil Diubah']);
     }
 
     /**
@@ -91,8 +101,10 @@ class KasusController extends Controller
      * @param  \App\Models\kasus  $kasus
      * @return \Illuminate\Http\Response
      */
-    public function destroy(kasus $kasus)
+    public function destroy($id)
     {
-        //
+        $kasus = kasus::findOrFail($id)->delete();
+        return redirect()->route('kasus.index')
+        ->with(['message'=>'Berhasil Dihapus']);
     }
 }

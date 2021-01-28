@@ -13,8 +13,8 @@
                         <table class="table">
                             <tr>
                                 <th>No</th>
-                                <th>Kecamatan</th>
                                 <th>desa</th>
+                                <th>kecamatan</th>
                                 <th>Aksi</th>
                             </tr>
                             @php $no=1; @endphp
@@ -29,7 +29,7 @@
                                         @method('Delete')
                                         <a class="btn btn-info" href=" {{ route('desa.show', $data->id) }} ">Show</a>
                                         <a class="btn btn-warning" href=" {{ route('desa.edit', $data->id) }} ">Edit</a>
-                                        <button type="submit" class="btn btn-danger" >Delete</button>
+                                        <button type="submit" class="btn btn-danger">Delete</button>
                                     </form>
                                 </td>
                             </tr>

@@ -13,15 +13,15 @@
                         <table class="table">
                             <tr>
                                 <th>No</th>
-                                <th>rw</th>
-                                <th>desa</th>
+                                <th>Rw</th>
+                                <th>Desa</th>
                                 <th>Aksi</th>
                             </tr>
                             @php $no=1; @endphp
                             @foreach($rw as $data)
                             <tr>
                                 <td>{{$no++}}</td>
-                                <td>{{$data->nama_rw}}</td>
+                                <td>{{$data->no_rw}}</td>
                                 <td>{{$data->nama_desa}}</td>
                                 <td>
                                     <form action="{{route('rw.destroy', $data->id)}}" method="post">
