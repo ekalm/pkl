@@ -21,8 +21,8 @@
                             @foreach($rw as $data)
                             <tr>
                                 <td>{{$no++}}</td>
-                                <td>{{$data->no_rw}}</td>
-                                <td>{{$data->nama_desa}}</td>
+                                <td>{{$data->nama_rw}}</td>
+                                <td>{{$data->desa->nama_desa}}</td>
                                 <td>
                                     <form action="{{route('rw.destroy', $data->id)}}" method="post">
                                         @csrf

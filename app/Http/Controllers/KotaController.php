@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kota;
-use App\Models\kecamatan;
 use App\Models\Provinsi;
 use Illuminate\Http\Request;
 
@@ -39,6 +38,15 @@ class KotaController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'kode_kota' => 'required|max:3',
+            'nama_kota' => 'required|unique:kotas'
+        ], [
+            'kode_.required' => 'Kode kota tidak boleh kosong',
+            'kode_kota.max' => 'Kode maximal 3 karakter',
+            'nama_kota.required' => 'Nama kota tidak boleh kosong',
+            'nama_kota.unique' => 'Nama kota sudah terdaftar'
+        ]);
         $kota = new Kota();
         $kota->id_provinsi = $request->id_provinsi;
         $kota->kode_kota = $request->kode_kota;
@@ -83,6 +91,15 @@ class KotaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'kode_kota' => 'required|max:3',
+            'nama_kota' => 'required|unique:kotas'
+        ], [
+            'kode_kota.required' => 'Kode kota tidak boleh kosong',
+            'kode_kota.max' => 'Kode maximal 3 karakter',
+            'nama_kota.required' => 'Nama kota tidak boleh kosong',
+            'nama_kota.unique' => 'Nama kota sudah terdaftar'
+        ]);
         $kota = Kota::findOrFail($id);
         $kota->id_provinsi = $request->id_provinsi;
         $kota->kode_kota = $request->kode_kota;

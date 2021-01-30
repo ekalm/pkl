@@ -7,6 +7,15 @@
                 <div class="card-header">
                     Edit Data Provinsi 
                          <div class="card-body">
+                         @if (count($errors)> 0)
+                             <div class="alert alert-danger">
+                                 <ul>
+                                     @foreach ($errors->all() as $error)
+                                     <li>{{$error}}</li>
+                                     @endforeach
+                                 </ul>
+                             </div>
+                             @endif
                              <form action="{{route('provinsi.update',$provinsi->id)}}" method="post">
                         @method('put')
                         @csrf

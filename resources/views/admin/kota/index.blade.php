@@ -24,7 +24,7 @@
                                 <td>{{$no++}}</td>
                                 <td>{{$data->kode_kota}}</td>
                                 <td>{{$data->nama_kota}}</td>
-                                <td>{{$data->nama_provinsi}}</td>
+                                <td>{{$data->provinsi->nama_provinsi}}</td>
                                 <td>
                                     <form action="{{route('kota.destroy', $data->id)}}" method="post">
                                         @csrf

@@ -10,53 +10,44 @@
                     <div class="card-body">
                         <form action="{{route('kasus.store')}}" method="post">
                             @csrf
+                            @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                            @endif
                             <div class="form-group">
-                                <label for="">Rw</label>
-                                <select name="id_rw" class="form-control" required>
-                                    @foreach($rw as $data)
-                                    <option value="{{$data->id}}">{{$data->nama}}</option>
+                                <label for="">Pilih Rw</label>
+                                <select name="id_rw" class="form-control">
+                                    @foreach($kasus as $data)
+                                    <option value="{{$data->id}}">{{$data->nama_rw}}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
-                            <div class="mb-12">
-                                <label for="exampleInputPassword" class="form-label">Reaktif</label>
-                                <input type="number" class="form-control" id="exampleInputPassword" name="reaktif" required>
-                            </div>
-                            </div>
+                                <label for="">Reaktif</label>
+                                <input type="number" name="reaktif" class="form-control" >
                             </div>
                             <div class="form-group">
-                            <div class="mb-12">
-                                <label for="exampleInputPassword" class="form-label">Positif</label>
-                                <input type="number" class="form-control" id="exampleInputPassword" name="positif" required>
-                            </div>
-                            </div>
+                                <label for="">Positif</label>
+                                <input type="number" name="positif" class="form-control" >
                             </div>
                             <div class="form-group">
-                            <div class="mb-12">
-                                <label for="exampleInputPassword" class="form-label">Meninggal</label>
-                                <input type="number" class="form-control" id="exampleInputPassword" name="meninggal" required>
-                            </div>
-                            </div>
+                                <label for="">Sembuh</label>
+                                <input type="number" name="sembuh" class="form-control" >
                             </div>
                             <div class="form-group">
-                            <div class="mb-12">
-                                <label for="exampleInputPassword" class="form-label">Sembuh</label>
-                                <input type="number" class="form-control" id="exampleInputPassword" name="sembuh" required>
-                            </div>
-                            </div>
+                                <label for="">Meninggal</label>
+                                <input type="number" name="meninggal" class="form-control" >
                             </div>
                             <div class="form-group">
-                            <div class="mb-12">
-                                <label for="exampleInputPassword" class="form-label">Tanggal</label>
-                                <input type="number" class="form-control" id="exampleInputPassword" name="tanggal" required>
-                            </div>
+                                <label for="">Tanggal</label>
+                                <input type="date" name="tanggal" class="form-control" >
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn block">Simpan</button>
-                                <div>
-                            </form>
-                        </div>
+                                <a href=" {{ route('kasus.index') }} " class="btn btn-danger">Back</a>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -5,7 +5,7 @@ use App\Http\Controllers\ProvinsiController;
 use App\Http\Controllers\KotaController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\DesaController;
-use App\Http\Controllers\rwController;
+use App\Http\Controllers\RwController;
 use App\Http\Controllers\KasusController;
 
 /*

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Controller\DB;
 use App\Models\kasus;
 use App\Models\rw;
 use Illuminate\Http\Request;
@@ -16,7 +16,7 @@ class KasusController extends Controller
     public function index()
     {
         $kasus = kasus::with('rw')->get();
-        return view('kasus.index', compact('kasus'));
+        return view('admin.kasus.index', compact('kasus'));
     }
 
     /**
@@ -26,8 +26,8 @@ class KasusController extends Controller
      */
     public function create()
     {
-        $rw = Rw::all();
-        return view('kasus.create', compact('rw'));
+        $kasus = Rw::all();
+        return view('admin.kasus.create', compact('kasus'));
     }
 
     /**
@@ -38,15 +38,16 @@ class KasusController extends Controller
      */
     public function store(Request $request)
     {
-        $kasus = new Kasus();
-        $kasus->jumlah_reaktif = $request->reaktif;
-        $kasus->jumlah_positif = $request->positif;
-        $kasus->jumlah_meninggal = $request->meninggal;
-        $kasus->jumlah_sembuh = $request->sembuh;
-        $kasus->tanggal = $request->tanggal;
+         $kasus = new kasus();
         $kasus->id_rw = $request->id_rw;
+        $kasus->reaktif = $request->reaktif;
+        $kasus->positif = $request->positif;
+        $kasus->sembuh = $request->sembuh;
+        $kasus->meninggal = $request->meninggal;
+        $kasus->tanggal = $request->tanggal;
         $kasus->save();
-        return redirect()->route('kasus.index')->with(['message'=>'Data Berhasil dibuat']);
+        return redirect()->route('kasus.index')
+            ->with(['success'=>'Data Berhasil di input']);
     }
 
     /**
@@ -57,8 +58,8 @@ class KasusController extends Controller
      */
     public function show($id)
     {
-        $kasus = Kasus::findOrFail($id);
-        return view('kasus.show', compact('kasus'));
+        $kasus = kasus::findOrFail($id);
+        return view('admin.kasus.show', compact('kasus'));
     }
 
     /**
@@ -67,11 +68,11 @@ class KasusController extends Controller
      * @param  \App\Models\kasus  $kasus
      * @return \Illuminate\Http\Response
      */
-    public function edit(kasus $kasus)
+    public function edit($id)
     {
         $rw = Rw::all();
-        $kasus = Kasus::findOrFail($id);
-        return view('kasus.edit', compact('kasus','rw'));
+        $kasus = kasus::findOrFail($id);
+        return view('admin.kasus.edit', compact('kasus', 'rw'));
     }
 
     /**
@@ -83,16 +84,16 @@ class KasusController extends Controller
      */
     public function update(Request $request,$id)
     {
-        $kasus = $kasus::findOrFail($id);
-        $kasus->jumlah_reaktif = $request->reaktif;
-        $kasus->jumlah_positif = $request->positif;
-        $kasus->jumlah_meninggal = $request->meninggal;
-        $kasus->jumlah_sembuh = $request->sembuh;
-        $kasus->tanggal = $request->tanggal;
+        $kasus = new kasus();
         $kasus->id_rw = $request->id_rw;
+        $kasus->reaktif = $request->reaktif;
+        $kasus->positif = $request->positif;
+        $kasus->sembuh = $request->sembuh;
+        $kasus->meninggal = $request->meninggal;
+        $kasus->tanggal = $request->tanggal;
         $kasus->save();
         return redirect()->route('kasus.index')
-        ->with(['message'=>'Data Berhasil Diubah']);
+            ->with(['success'=>'Data Berhasil di input']);
     }
 
     /**
@@ -103,8 +104,9 @@ class KasusController extends Controller
      */
     public function destroy($id)
     {
-        $kasus = kasus::findOrFail($id)->delete();
+        $kasus = kasus::findOrFail($id);
+        $kasus->delete();
         return redirect()->route('kasus.index')
-        ->with(['message'=>'Berhasil Dihapus']);
+            ->with(['success'=>'Data Berhasil di hapus']);
     }
 }

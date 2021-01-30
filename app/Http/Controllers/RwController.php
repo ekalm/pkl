@@ -8,11 +8,11 @@ use Illuminate\Http\Request;
 
 class RwController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         $rw = rw::with('desa')->get();
@@ -38,12 +38,18 @@ class RwController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'nama_rw' => 'required|unique:rws'
+        ], [
+            'nama_rw.required' => 'No rw tidak boleh kosong',
+            'nama_rw.unique' => 'No rw sudah terdaftar'
+        ]);
         $rw = new Rw();
         $rw->id_desa = $request->id_desa;
-        $rw->no_rw = $request->no_rw;
+        $rw->nama_rw = $request->nama_rw;
         $rw->save();
         return redirect()->route('rw.index')
-            ->with(['success'=>'Data <b>', $rw->no_rw, 
+            ->with(['success'=>'Data <b>', $rw->nama_rw, 
             '</b> Berhasil di input']);
     }
 
@@ -81,9 +87,15 @@ class RwController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'nama_rw' => 'required|unique:rws'
+        ], [
+            'nama_rw.required' => 'No rw tidak boleh kosong',
+            'nama_rw.unique' => 'No rw sudah terdaftar'
+        ]);
         $rw = Rw::findOrFail($id);
         $rw->id_desa = $request->id_desa;
-        $rw->no_rw = $request->no_rw;
+        $rw->nama_rw = $request->nama_rw;
         $rw->save();
         return redirect()->route('rw.index')
             ->with(['success'=>'Data <b>', $rw->nama_rw, 
@@ -101,7 +113,7 @@ class RwController extends Controller
         $rw = Rw::findOrFail($id);
         $rw->delete();
         return redirect()->route('rw.index')
-            ->with(['success'=>'Data <b>', $rw->no_rw, 
+            ->with(['success'=>'Data <b>', $rw->nama_rw, 
             '</b> Berhasil di hapus']);
     }
 }

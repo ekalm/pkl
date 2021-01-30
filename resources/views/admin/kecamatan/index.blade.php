@@ -5,32 +5,30 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <b>Data Kota</b> 
-                    <a href="{{route('kota.create')}}" class="btn btn-primary float-right">Tambah</a>
+                    <b>Data Kecamatan</b> 
+                    <a href="{{route('kecamatan.create')}}" class="btn btn-primary float-right">Tambah</a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table">
                             <tr>
                                 <th>No</th>
-                                <th>Kode Kota</th>
+                                <th>Kecamatan</th>
                                 <th>Kota</th>
-                                <th>Provinsi</th>
                                 <th>Aksi</th>
                             </tr>
                             @php $no=1; @endphp
-                            @foreach($kota as $data)
+                            @foreach($kecamatan as $data)
                             <tr>
                                 <td>{{$no++}}</td>
-                                <td>{{$data->kode_kota}}</td>
-                                <td>{{$data->nama_kota}}</td>
-                                <td>{{$data->provinsi->nama_provinsi}}</td>
+                                <td>{{$data->nama_kecamatan}}</td>
+                                <td>{{$data->kota->nama_kota}}</td>
                                 <td>
-                                    <form action="{{route('kota.destroy', $data->id)}}" method="post">
+                                    <form action="{{route('kecamatan.destroy', $data->id)}}" method="post">
                                         @csrf
                                         @method('Delete')
-                                        <a class="btn btn-info" href=" {{ route('kota.show', $data->id) }} ">Show</a>
-                                        <a class="btn btn-warning" href=" {{ route('kota.edit', $data->id) }} ">Edit</a>
+                                        <a class="btn btn-info" href=" {{ route('kecamatan.show', $data->id) }} ">Show</a>
+                                        <a class="btn btn-warning" href=" {{ route('kecamatan.edit', $data->id) }} ">Edit</a>
                                         <button type="submit" class="btn btn-danger" >Delete</button>
                                     </form>
                                 </td>

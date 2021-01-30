@@ -8,6 +8,16 @@
                         Edit Data Rw
                     </div>
                     <div class="card-body">
+                    @if (count($errors)> 0)
+                             <div class="alert alert-danger">
+                                 <ul>
+                                     @foreach ($errors->all() as $error)
+                                     <li>{{$error}}</li>
+                                     @endforeach
+                                 </ul>
+                             </div>
+                             @endif
+                    <div class="card-body">
                         <form action="{{route('rw.update', $rw->id)}}" method="post">
                             @method('put')
                             @csrf
@@ -22,8 +32,8 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="">No rw</label>
-                                <input type="number" name="no_rw" value="{{$rw->nama_desa}}" class="form-control" required>
+                                <label for="">Rw</label>
+                                <input type="number" name="nama_rw" value="{{$rw->nama_desa}}" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn block">Simpan</button>
