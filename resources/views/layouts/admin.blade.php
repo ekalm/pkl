@@ -60,7 +60,6 @@
       </section>
       </div>
       <!-- footer -->
-      @components('layouts.components.footer')
           </div>
   
 <script src="{{asset('assets/plugins/jquery/jquery.min.js')}}"></script>

@@ -14,13 +14,14 @@ class CreateStateCityTables extends Migration
     public function up()
     {
         Schema::create('demo_state', function (Blueprint $table) {
-            $table->increment('id');
+            $table->increments('id');
             $table->string('name');
             $table->timestamps();
         });
 
-        Schema::create('demo_state', function (Blueprint $table) {
-            $table->increment('id');
+
+        Schema::create('demo_cities', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('state_id');
             $table->string('name');
             $table->timestamps();
@@ -35,6 +36,6 @@ class CreateStateCityTables extends Migration
     public function down()
     {
         Schema::drop('demo_cities');
-        Schema::drop('demo_state');
+        Scema::drop('demo_state');
     }
 }
