@@ -1,9 +1,9 @@
 <?php
 
+use App\Models\Provinsi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\ApiControllers;
-use App\Http\Controllers\API\PostsControllers;
+use App\Http\Controllers\Api\ProvinsiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,12 +19,10 @@ use App\Http\Controllers\API\PostsControllers;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-    Route::get('provinsi',[ApiController::class, 'provinsi']);
-    Route::get('provinsi/{id}',[ApiController::class, 'provinsixkota']);
 
-    Route::get('/posts',[PostsController::class,'index']);
-    Route::post('/posts',[PostsController::class,'store']);
-    Route::get('/posts/{id}',[PostsController::class,'show']);
-    Route::put('/posts/{id}',[PostsController::class,'update']);
-    Route::delete('/posts/{id}',[PostsController::class,'destroy']);
-    
+// API Provinsi
+Route::get('provinsi', [ProvinsiController::class, 'index']);
+Route::post('provinsi', [ProvinsiController::class, 'store']);
+Route::get('provinsi/{id}', [ProvinsiController::class, 'show']);
+Route::post('provinsi/update/{id}', [ProvinsiController::class, 'update']);
+Route::delete('/provinsi/{id}', [ProvinsiController::class, 'destroy']);

@@ -2,8 +2,8 @@
 
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <img src="{{asset('assets/dist/img/AdminLTELogo.png')}}" alt="AdminLTELogo" class="brand-image img-circle elevation-5" style="opacity: .7">
-      <span class="brand-text font-weight-light">COVID-19</span>
+      <img src="{{asset('assets/dist/img/covid.png')}}" alt="" class="brand-image img-circle elevation-5" style="opacity: .7">
+      <span class="brand-text font-weight-light"></span>
     </a>
 
     <!-- Sidebar -->

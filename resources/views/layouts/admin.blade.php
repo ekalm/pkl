@@ -31,11 +31,12 @@
         <div class="wrapper">
 
         <!-- Navbar -->
-        @components('layouts.components.navbar')
+          @include('layouts.components.navbar')
         <!-- Endnavbar -->
 
         <!-- Sidebar -->
-        @components('layouts.components.sidebar')
+         @include('layouts.components.sidebar')
+         ((....))
         <!-- End Sidebar -->
         <div class="content-wrapper">
         <!-- Main Sidebar Container -->
@@ -97,3 +98,4 @@
 <script src="{{asset('assets/dist/js/demo.js')}}"></script>
 </body>
 </html>
+
