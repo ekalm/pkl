@@ -1,44 +1,39 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProvinsiController;
-use App\Http\Controllers\KotaController;
-use App\Http\Controllers\KecamatanController;
-use App\Http\Controllers\DesaController;
-use App\Http\Controllers\RwController;
-use App\Http\Controllers\KasusController;
+use App\Http\Controllers\PostsController;
+use App\Http\Controllers\Api\ProvinsiController;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| API Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register web routes for your application. These
+| Here is where you can register API routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| is assigned the "api" middleware group. Enjoy building your API!
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Auth::routes();
+Route::get('indonesia', [ProvinsiController::class, 'indonesia']);
+Route::get('/positif', [ProvinsiController::class, 'positif']);
+Route::get('/sembuh', [ProvinsiController::class, 'sembuh']);
+Route::get('/meninggal', [ProvinsiController::class, 'meninggal']);
 
-Route::get('/admin', [App\Http\Controllers\HomeController::class, 'index'])->name('provinsi');
-Auth::routes();
+Route::get('/provinsi', [ProvinsiController::class, 'provinsi']);
+Route::get('/provinsi/{id}', [ProvinsiController::class, 'showProvinsi']);
 
-Route::group(['prefix' => 'admin', 'middleware'=>['auth']], function() {
-        Route::get('/', function()
-        {
-            return view('admin.index');
-        });
-
-        Route::resource('provinsi', ProvinsiController::class);
-        Route::resource('kota', KotaController::class);
-        Route::resource('kecamatan', KecamatanController::class);
-        Route::resource('desa', desaController::class);
-        Route::resource('rw', rwController::class);
-        Route::resource('kasus', kasusController::class);
- } );
+Route::get('/posts', [PostsController::class, 'index']);
+Route::post('/posts/store', [PostsController::class, 'store']);
+Route::get('/posts/{id}', [PostsController::class, 'show']);
+Route::put('/posts/update/{id}', [PostsController::class, 'update']);
+Route::delete('/posts/{id?}', [PostsController::class, 'destroy']);
+Route::get('/kota', [ProvinsiController::class,'kota']);
+Route::get('/kecamatan', [ProvinsiController::class,'kecamatan']);
+Route::get('/kelurahan', [ProvinsiController::class,'kelurahan']);
+Route::get('/rw', [ProvinsiController::class,'rw']);
