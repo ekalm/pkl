@@ -60,8 +60,8 @@ class ProvinsiController extends Controller
                 ],
                 'Total' => [
                     'Positif' => $positif,
-                    'Sembuh' => $sembuh,
-                    'Meninggal' => $meninggal
+                    'Sembuh' => $Sembuh,
+                    'Meninggal' => $Meninggal
                 ],
         ];    
         return response()->json($data, 200);        
@@ -153,7 +153,7 @@ class ProvinsiController extends Controller
                 $res = [
                     'succsess' => true,
                     'Data' => $data,
-                    'message' => 'Data Kasus Di Tampilkan'
+                    'message' => 'Data Kasus Ditampilkan'
                 ];
                 return response()->json($res,200);
     }
@@ -253,5 +253,26 @@ class ProvinsiController extends Controller
             return response()->json($indonesia, 200);            
     }
 
-    
+    public $data = [];
+     public function global()
+     {
+        $response = Http::get('https://api.PRAKERIN.com/')->json();
+        //dd($response);
+        foreach ($response as $data =>$val){
+            $raw = $val['attributes'];
+            $res = [   
+                'Negara' => $raw['Country_Region'],
+                'Positif' => $raw['Confirmed'],
+                'Sembuh' => $raw['Recovered'],
+                'Meninggal' => $raw['Deaths']
+            ]; 
+            array_push ($this->data, $res);
+        }
+        $data = [
+            'success' => true,
+            'data' => $this->data,
+            'message' => 'Data Berhasil'
+        ];
+        return response()->json($data,200);
+     }
 }

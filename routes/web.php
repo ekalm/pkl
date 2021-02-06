@@ -1,39 +1,60 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PostsController;
-use App\Http\Controllers\Api\ProvinsiController;
 
 /*
 |--------------------------------------------------------------------------
-| API Routes
+| Web Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register API routes for your application. These
+| Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
+| contains the "web" middleware group. Now create something great!
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/', function () {
+    return view('welcome');
 });
 
-Route::get('indonesia', [ProvinsiController::class, 'indonesia']);
-Route::get('/positif', [ProvinsiController::class, 'positif']);
-Route::get('/sembuh', [ProvinsiController::class, 'sembuh']);
-Route::get('/meninggal', [ProvinsiController::class, 'meninggal']);
+Auth::routes();
 
-Route::get('/provinsi', [ProvinsiController::class, 'provinsi']);
-Route::get('/provinsi/{id}', [ProvinsiController::class, 'showProvinsi']);
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/posts', [PostsController::class, 'index']);
-Route::post('/posts/store', [PostsController::class, 'store']);
-Route::get('/posts/{id}', [PostsController::class, 'show']);
-Route::put('/posts/update/{id}', [PostsController::class, 'update']);
-Route::delete('/posts/{id?}', [PostsController::class, 'destroy']);
-Route::get('/kota', [ProvinsiController::class,'kota']);
-Route::get('/kecamatan', [ProvinsiController::class,'kecamatan']);
-Route::get('/kelurahan', [ProvinsiController::class,'kelurahan']);
-Route::get('/rw', [ProvinsiController::class,'rw']);
+// Route::get('index', function (){
+   // return view('layouts.admin.index');
+// });
+
+Route::get('/admin', [App\Http\Controllers\HomeController::class, 'admin'])->name('home');
+use App\Http\Controllers\ProvinsiController;
+Route::resource('provinsi', ProvinsiController::class);
+use App\Http\Controllers\KotaController;
+Route::resource('kota', KotaController::class);
+use App\Http\Controllers\KecamatanController;
+Route::resource('kecamatan',KecamatanController::class);
+use App\Http\Controllers\KelurahanController;
+Route::resource('kelurahan',KelurahanController::class);
+use App\Http\Controllers\RwController;
+Route::resource('rw',RwController::class);
+use App\Http\Controllers\KasusController;
+Route::resource('kasus',KasusController::class);
+Route::view('city','livewire.home');
+// Route::get('provinsi', function (){
+//     return view('admin.provinsi.index');
+// });
+
+// Route::get('kota', function (){
+//     return view('admin.kota.index');
+// });
+// Route::get('kecamatan', function (){
+//     return view('admin.kecamatan.index');
+// });
+// Route::get('kelurahan', function (){
+//     return view('admin.kelurahan.index');
+// });
+// Route::get('rw', function (){
+//     return view('admin.rw.index');
+// });
+// Route::get('laporan', function (){
+//     return view('admin.laporan.index');
+// });
